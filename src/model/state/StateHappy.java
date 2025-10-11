@@ -13,7 +13,7 @@ public class StateHappy implements PetState {
                 pet.setHappiness(55);
                 System.out.println(pet.getName() + " comeu demais e agora está dodoi. (╥﹏╥)");
             } else if (pet.getFeedCount() < 3) {
-                System.out.println(pet.getName() + " já comeu o suficiente, se você continuar o alimentar ele pode ficar doente");
+                System.out.println(pet.getName() + " já comeu o suficiente, se você continuar o alimentando ele pode ficar doente");
             }
         } else {
             pet.setHappiness(pet.getHappiness() + 10);
@@ -24,12 +24,13 @@ public class StateHappy implements PetState {
 
     public void play(Pet pet) {
         if (pet.getHappiness() == 100) {
+            pet.setHealth(pet.getHealth() - 5);
             pet.incrementPlayCount();
             if (pet.getPlayCount() > 5) {
                 pet.setCurrentState(new StateTired());
                 System.out.println(pet.getName() + " brincou demais e agora precisa dormir um pouco");
             } else {
-                System.out.println(pet.getName() + " pode ficar cansar se continuar brincando tanto");
+                System.out.println(pet.getName() + " pode ficar cansando de tanto brincar");
             }
         } else if (pet.getHealth() == 75) {
             pet.setCurrentState(new StateHungry());

@@ -3,10 +3,20 @@ package model.decorator;
 import model.Pet;
 
 public class BathDecorator extends PetDecorator {
+    private int playsRemains = 5;
 
     @Override
     public String displayName(Pet pet) {
         return "🛁 " + pet.getName();
+    }
+
+    @Override
+    public void onPlay(Pet pet) {
+        playsRemains--;
+        if (playsRemains <= 0) {
+            System.out.println(pet.getName() + " se sujou brincando e o efeito do banho acabou!");
+            pet.setAcessory(null);
+        }
     }
 
     @Override

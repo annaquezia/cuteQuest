@@ -4,7 +4,7 @@ public enum PetType {
     DOG(1, "Cachorro"),
     CAT(2, "Gato"),
     BUNNY(3, "Coelho"),
-    HAMSTER(4, "Hamster");
+    HAMSTER(4, "HamsterCreator");
 
     private int id;
     private String displayName;

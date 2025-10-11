@@ -6,7 +6,7 @@ import model.state.PetState;
 
 import java.util.UUID;
 
-public class Pet implements PetComponent {
+public abstract class Pet implements PetComponent {
     private UUID id;
     private String name;
     private PetType type;
@@ -18,7 +18,8 @@ public class Pet implements PetComponent {
     private boolean adopted;
     private PetState currentState;
     private PetState lastState;
-    private PetDecorator component;
+    private PetDecorator acessory;
+    private PetDecorator bath;
 
     public Pet(String name, PetType type) {
         this.id = UUID.randomUUID();
@@ -31,43 +32,61 @@ public class Pet implements PetComponent {
 
     public void feed(){
         currentState.feed(this);
-        if (component != null) {
-            component.onFeed(this);
+        if (bath != null) {
+            bath.onFeed(this);
+        }
+        if (acessory != null) {
+            acessory.onFeed(this);
         }
     }
 
     public void play(){
         currentState.play(this);
-        if (component != null) {
-            component.onPlay(this);
+        if (bath != null) {
+            bath.onPlay(this);
+        }
+        if (acessory != null) {
+            acessory.onPlay(this);
         }
     }
 
     public void heal(){
         currentState.heal(this);
-        if (component != null) {
-            component.onHeal(this);
+        if (bath != null) {
+            bath.onHeal(this);
+        }
+        if (acessory != null) {
+            acessory.onHeal(this);
         }
     }
 
     public void sleep(){
         currentState.sleep(this);
-        if (component != null) {
-            component.onSleep(this);
+        if (bath != null) {
+            bath.onSleep(this);
+        }
+        if (acessory != null) {
+            acessory.onSleep(this);
         }
     }
 
     public void wakeUp(){
         currentState.wakeUp(this);
-        if (component != null) {
-            component.onWake(this);
+        if (bath != null) {
+            bath.onWake(this);
+        }
+        if (acessory != null) {
+            acessory.onWake(this);
         }
     }
 
     public void tick(int hours) {
         currentState.tick(this, hours);
-        if (component != null) {
-            component.onTick(this, hours);
+        if (bath != null) {
+            bath.onTick(this, hours);
+        }
+        if (acessory != null) {
+            acessory.onTick(this, hours);
         }
     }
 
@@ -173,12 +192,20 @@ public class Pet implements PetComponent {
         this.lastState = lastState;
     }
 
-    public PetDecorator getDecorator() {
-        return component;
+    public PetDecorator getAcessory() {
+        return acessory;
     }
 
-    public void setDecorator(PetDecorator decorator) {
-        this.component = decorator;
+    public void setAcessory(PetDecorator decorator) {
+        this.acessory = decorator;
+    }
+
+    public PetDecorator getBath() {
+        return bath;
+    }
+
+    public void setBath(PetDecorator bath) {
+        this.bath = bath;
     }
 
     private static int clamp(int value, int min, int max) {

@@ -28,4 +28,12 @@ public class PetRepo {
         }
         return kennelPets;
     }
+
+    public List<Pet> getAllPets() {
+        List<Pet> allPets = new ArrayList<>();
+        for (Pet pet : pets.values()) {
+            allPets.add(pet);
+        }
+        return allPets;
+    }
 }

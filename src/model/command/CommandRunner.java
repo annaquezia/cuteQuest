@@ -25,7 +25,10 @@ public class CommandRunner {
             pet.tick(timeCost);
         }
 
-        System.out.println("⏱ " + cmd.description() + " | +" + timeCost + "h | now=" + clock.now() + "h");
+        UiScene scene = decideScene(cmd, pet);
+        commandRunner.ConsoleArtRender(scene, pet);
+
+        System.out.println("⏱ Custou: " + timeCost + "h | Agora: " + clock.now() + "h");
 
     }
 
@@ -37,7 +40,10 @@ public class CommandRunner {
         } else if (pet.getCurrentState() instanceof StateHungry) {
             return UiScene.HUNGRY;
         }
-
+        UiScene scene = cmd.sceneHint();
+        if (scene == null) {
+            return UiScene.IDLE;
+        }
         return cmd.sceneHint();
     }
 }

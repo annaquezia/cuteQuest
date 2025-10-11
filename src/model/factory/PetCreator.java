@@ -6,37 +6,44 @@ import model.Pet;
 import model.PetType;
 import model.state.StateHappy;
 import repo.KennelRepo;
+import repo.PetRepo;
 
 import java.util.Objects;
 
-public class PetFactory {
+public abstract class PetCreator {
+    protected final PetRepo pets;
+    protected final KennelRepo kennels;
 
-    public static Pet createPet(String name, PetType petType) {
-        Pet pet = new Pet(name, petType);
+    protected PetCreator(PetRepo pets, KennelRepo kennels) {
+        this.pets = pets;
+        this.kennels = kennels;
+    }
+
+    protected abstract Pet createPet(String name);
+
+    public Pet newPet(String name) {
+        Pet pet = createPet(name);
         pet.setCurrentState(new StateHappy());
-        pet.setHealth(100);
         pet.setHappiness(100);
-        pet.setAdopted(false);
+        pet.setHealth(100);
+        createPetAutoKennel(pet);
+        pets.addPet(pet);
         return pet;
     }
 
-    public static Pet createPetAutoKennel(String name, PetType petType, KennelRepo kennelRepo, int defaultCapacity) {
-        Objects.requireNonNull(kennelRepo, "kennelRepo can't be null");
-        Pet pet = new Pet(name, petType);
+    protected void createPetAutoKennel(Pet pet) {
+        KennelType required = kennelTypeFor(pet.getType());
 
-        KennelType required = kennelTypeFor(petType);
-
-        Kennel kennel = kennelRepo.findKennelWithSpaceByType(required).orElseGet(() -> {
-            String newName = defaultKennelName(required, kennelRepo);
-            Kennel k = new Kennel(newName, defaultCapacity, required);
-            kennelRepo.addKennel(k);
+        Kennel kennel = kennels.findKennelWithSpaceByType(required).orElseGet(() -> {
+            String newName = defaultKennelName(required, kennels);
+            Kennel k = new Kennel(newName, 5, required);
+            kennels.addKennel(k);
             return k;
         });
 
         if (kennel.addPet(pet.getId())) {
             pet.setKennelID(kennel.getKennelID());
         }
-        return pet;
     }
 
     private static KennelType kennelTypeFor(PetType type) {
@@ -54,9 +61,4 @@ public class PetFactory {
         return type.getDisplayName() + " #" + idx;
     }
 
-    private static void validateName(String name) {
-        if (name == null || name.trim().isEmpty())
-            throw new IllegalArgumentException("name não pode ser vazio");
-    }
 }
-
