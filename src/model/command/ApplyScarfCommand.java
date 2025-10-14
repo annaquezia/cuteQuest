@@ -12,7 +12,7 @@ public class ApplyScarfCommand implements Command {
     }
 
     public void execute() {
-        pet.setAcessory(new ScarfDecorator());
+        pet.setAcessory(new ScarfDecorator(pet));
     }
 
     public int timeCostHours() {

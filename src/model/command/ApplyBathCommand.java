@@ -14,7 +14,7 @@ public class ApplyBathCommand implements Command {
     }
 
     public void execute() {
-        pet.setBath(new BathDecorator());
+        pet.setBath(new BathDecorator(pet));
     }
 
     public int timeCostHours() {
