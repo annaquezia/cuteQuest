@@ -33,60 +33,60 @@ public abstract class Pet implements PetComponent {
     public void feed(){
         currentState.feed(this);
         if (bath != null) {
-            bath.onFeed(this);
+            bath.feed(this);
         }
         if (acessory != null) {
-            acessory.onFeed(this);
+            acessory.feed(this);
         }
     }
 
     public void play(){
         currentState.play(this);
         if (bath != null) {
-            bath.onPlay(this);
+            bath.play(this);
         }
         if (acessory != null) {
-            acessory.onPlay(this);
+            acessory.play(this);
         }
     }
 
     public void heal(){
         currentState.heal(this);
         if (bath != null) {
-            bath.onHeal(this);
+            bath.heal(this);
         }
         if (acessory != null) {
-            acessory.onHeal(this);
+            acessory.heal(this);
         }
     }
 
     public void sleep(){
         currentState.sleep(this);
         if (bath != null) {
-            bath.onSleep(this);
+            bath.sleep(this);
         }
         if (acessory != null) {
-            acessory.onSleep(this);
+            acessory.sleep(this);
         }
     }
 
     public void wakeUp(){
         currentState.wakeUp(this);
         if (bath != null) {
-            bath.onWake(this);
+            bath.wakeUp(this);
         }
         if (acessory != null) {
-            acessory.onWake(this);
+            acessory.wakeUp(this);
         }
     }
 
     public void tick(int hours) {
         currentState.tick(this, hours);
         if (bath != null) {
-            bath.onTick(this, hours);
+            bath.tick(this, hours);
         }
         if (acessory != null) {
-            acessory.onTick(this, hours);
+            acessory.tick(this, hours);
         }
     }
 

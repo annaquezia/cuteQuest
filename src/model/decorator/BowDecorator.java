@@ -4,6 +4,11 @@ import model.Pet;
 import model.state.*;
 
 public class BowDecorator extends PetDecorator {
+
+    public BowDecorator(Pet pet) {
+        super(pet);
+    }
+
     private int playsRemains = 3;
 
     @Override
@@ -12,24 +17,26 @@ public class BowDecorator extends PetDecorator {
     }
 
     @Override
-    public void onPlay(Pet pet) {
-        if (pet.getCurrentState() instanceof StateHungry) {
+    public void play(Pet pet) {
+        if (pet.getCurrentState() instanceof StateHungry
+                || pet.getCurrentState() instanceof StateSick
+                || pet.getCurrentState() instanceof StateTired
+                || pet.getCurrentState() instanceof StateSleeping) {
+            super.play(pet);
             return;
-        } else if (pet.getCurrentState() instanceof StateSick) {
-            return;
-        } else if (pet.getCurrentState() instanceof StateTired) {
-            return;
-        } else if (pet.getCurrentState() instanceof StateSleeping) {
-            return;
-        } else if (pet.getCurrentState() instanceof StateHappy){
+        }
+
+        super.play(pet);
+        if (pet.getCurrentState() instanceof StateHappy){
             playsRemains--;
             if (playsRemains <= 0) {
                 System.out.println(pet.getName() + " brincou demais e perdeu seu lacinho!");
                 pet.setAcessory(null);
             } else {
-                pet.setHappiness((clamp01(pet.getHappiness() + 5)));
+                pet.setHappiness((clamp(pet.getHappiness() + 5)));
                 System.out.println(pet.getName() + " ficou ainda mais feliz por causa do laço");
             }
         }
     }
+
 }

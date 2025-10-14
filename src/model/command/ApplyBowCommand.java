@@ -13,7 +13,7 @@ public class ApplyBowCommand implements Command {
     private Pet pet;
 
     public void execute() {
-        pet.setAcessory(new BowDecorator());
+        pet.setAcessory(new BowDecorator(pet));
     }
 
     public int timeCostHours() {

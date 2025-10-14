@@ -2,8 +2,14 @@ package model.decorator;
 
 import model.Pet;
 import model.state.*;
+import ui.UiScene;
 
 public class ScarfDecorator extends PetDecorator {
+
+    public ScarfDecorator(Pet pet) {
+        super(pet);
+    }
+
     private int playsRemains = 2;
 
     @Override
@@ -12,16 +18,17 @@ public class ScarfDecorator extends PetDecorator {
     }
 
     @Override
-    public void onPlay(Pet pet) {
-        if (pet.getCurrentState() instanceof StateHungry) {
+    public void play(Pet pet) {
+        if (pet.getCurrentState() instanceof StateHungry
+                || pet.getCurrentState() instanceof StateSick
+                || pet.getCurrentState() instanceof StateTired
+                || pet.getCurrentState() instanceof StateSleeping) {
+            super.play(pet);
             return;
-        } else if (pet.getCurrentState() instanceof StateSick) {
-            return;
-        } else if (pet.getCurrentState() instanceof StateTired) {
-            return;
-        } else if (pet.getCurrentState() instanceof StateSleeping) {
-            return;
-        } else if (pet.getCurrentState() instanceof StateHappy) {
+        }
+
+        super.play(pet);
+        if (pet.getCurrentState() instanceof StateHappy) {
             playsRemains--;
             if (playsRemains <= 0) {
                 System.out.println(pet.getName() + " estava sentindo calor e tirou o cachecol!");
@@ -31,7 +38,7 @@ public class ScarfDecorator extends PetDecorator {
     }
 
     @Override
-    public void onHeal(Pet pet) {
+    public void heal(Pet pet) {
         pet.setCurrentState(new StateHappy());
         pet.resetFeedCount();
         pet.resetPlayCount();
