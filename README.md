@@ -1,80 +1,77 @@
 # Little Cats Pet Shop 🐾
 
-**Little Cats Pet Shop** é um jogo de simulação desenvolvido em **Java**, com base em princípios de **Programação Orientada a Objetos (POO)** e na aplicação de diversos **padrões de projeto (GoF)**.  
-O jogador pode criar, alimentar, brincar e cuidar de diferentes animais — gato, cachorro, coelho e hamster — cada um com comportamento e estados próprios.
+O **Little Cats Pet Shop** é um jogo em Java onde você cuida de animaizinhos virtuais — gatos, cachorros, coelhos e hamsters.  
+Você pode alimentar, brincar, colocar acessórios e acompanhar o humor e a saúde de cada pet.
+
+Mais do que um joguinho de console, o projeto foi feito para **demonstrar o uso de Padrões de Projeto (GoF)** de um jeito prático e divertido.
 
 ---
 
-## Visão geral
+## Padrões de Projeto usados
 
-O projeto tem como principal objetivo demonstrar a integração entre **arquitetura orientada a objetos** e **padrões de projeto GoF** em um sistema interativo em console.  
-Cada ação do usuário representa uma interação encapsulada em comandos e reflete mudanças reais no estado do pet.
-
----
-
-## Padrões de Projeto Utilizados
-
-### Factory Method  
-Responsável pela **criação dos pets** de acordo com o tipo selecionado pelo jogador, garantindo encapsulamento e flexibilidade no processo de instanciamento.
-
-### Command  
-Encapsula ações do jogador (como alimentar, brincar, dormir, acordar, curar e aplicar acessórios) em **objetos de comando independentes**, permitindo o desacoplamento entre quem solicita a ação e quem a executa.
-
-### State  
-Modela os **estados internos dos pets** (feliz, faminto, cansado, dormindo, doente) e define como o comportamento muda dinamicamente conforme cada estado.
-
-### Decorator  
-Permite adicionar **funcionalidades visuais e comportamentais** de forma dinâmica, como banho e acessórios (laço e cachecol), sem modificar a estrutura original do objeto `Pet`.
+- **Factory Method** → cria automaticamente os pets de acordo com o tipo escolhido.  
+- **Command** → encapsula cada ação do jogador (alimentar, brincar, dormir, curar...).  
+- **State** → controla o humor e os estados dos pets (feliz, cansado, faminto, doente...).  
+- **Decorator** → adiciona acessórios e efeitos visuais (laço, cachecol, banho) sem alterar a classe original.  
+- **Singleton (implícito)** → garante que os repositórios de pets e baias existam em uma única instância durante o jogo.
 
 ---
 
-## Estrutura do Projeto
+## O que você pode fazer
+
+- Criar e nomear seu pet  
+- Alimentar, brincar, curar e colocar pra dormir  
+- Dar banho e adicionar acessórios  
+- Ver o status e trocar entre pets  
+- Passar horas no jogo (simulação de tempo)  
+- Tudo isso com feedback visual no console
+
+---
+
+## Estrutura do projeto
 
 src/
 ├── model/
-│   ├── command/        # Implementações do padrão Command
-│   ├── decorator/      # Implementações do padrão Decorator
-│   ├── factory/        # Implementações do padrão Factory Method
-│   ├── state/          # Implementações do padrão State
-│   ├── Pet.java        # Classe base do pet
-│   ├── Kennel.java     # Classe de baia
+│   ├── command/        # Ações do jogador
+│   ├── decorator/      # Acessórios e banho
+│   ├── factory/        # Criação de pets
+│   ├── state/          # Estados do pet
+│   ├── Pet.java
 │   └── SimulationClock.java
 ├── repo/
 │   ├── PetRepo.java
 │   └── KennelRepo.java
 ├── ui/
-│   ├── GameMenu.java        # Menu principal e interação do jogador
+│   ├── GameMenu.java
 │   ├── ConsoleArtRender.java
 │   └── UiScene.java
 └── Main.java
 
 ---
 
-## Funcionalidades
-
-- Criação de pets com **Factory Method**  
-- Ações de interação (alimentar, brincar, dormir, acordar, curar) via **Command Pattern**  
-- Transição entre estados de humor e saúde via **State Pattern**  
-- Aplicação e remoção dinâmica de acessórios e cuidados com **Decorator Pattern**  
-- Repositórios persistentes em memória para pets e baias
-
----
-
-## Execução
+## ▶️ Como jogar
 
 1. Compile o projeto:
    ```bash
    javac Main.java
 
-2. Execute
+2. Execute:
+   ```bash
    java Main
-   
-3. Interaja com o menu exibido no console para criar, cuidar e gerenciar seus pets.
+
+3. Escolha seu pet e comece a cuidar dele.
+Alimente, brinque, cure, decore e veja como ele reage a cada ação.
 
 ---
 
-## Tecnologias e Conceitos Envolvidos
-- Linguagem: Java 17+
-- Paradigma: Programação Orientada a Objetos
-- Padrões GoF: Factory Method, Command, State e Decorator
-- Arquitetura modular com repositórios e menu em console
+## Tecnologias e conceitos
+
+- Java 17+
+- Programação Orientada a Objetos
+- Padrões de Projeto GoF (Factory, Command, State, Decorator)
+- Simulação de tempo (SimulationClock)
+- Interface por console (GameMenu + ConsoleArtRender)
+
+---
+Desenvolvido por Anna Quezia dos Santos
+Projeto voltado ao estudo e prática de padrões de projeto aplicados a sistemas interativos em Java.
