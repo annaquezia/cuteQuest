@@ -29,6 +29,7 @@ Mais do que um joguinho de console, o projeto foi feito para **demonstrar o uso 
 
 ## Estrutura do projeto
 
+'''
 src/
 ├── model/
 │   ├── command/        # Ações do jogador
@@ -45,6 +46,7 @@ src/
 │   ├── ConsoleArtRender.java
 │   └── UiScene.java
 └── Main.java
+'''
 
 ---
 
