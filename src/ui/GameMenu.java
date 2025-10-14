@@ -3,7 +3,7 @@ package ui;
 import model.Pet;
 import model.PetType;
 import model.SimulationClock;
-import model.command.CommandRunner;
+import model.command.*;
 import repo.KennelRepo;
 import model.factory.PetCreator;
 import model.factory.PetFactoryProvider;
@@ -177,16 +177,16 @@ public class GameMenu {
 
         switch (option) {
             case 1:
-                runner.runCommand(new model.command.FeedCommand(pet), pet);
+                runner.runCommand(new FeedCommand(pet), pet);
                 break;
             case 2:
-                runner.runCommand(new model.command.PlayCommand(pet), pet);
+                runner.runCommand(new PlayCommand(pet), pet);
                 break;
             case 3:
-                runner.runCommand(new model.command.SleepCommand(pet), pet);
+                runner.runCommand(new SleepCommand(pet), pet);
                 break;
             case 4:
-                runner.runCommand(new model.command.WakeCommand(pet), pet);
+                runner.runCommand(new WakeCommand(pet), pet);
                 break;
             case 5:
                 careMenu(pet);
@@ -204,7 +204,7 @@ public class GameMenu {
                     scanner.nextLine();
                     hours = validHours;
                 }
-                runner.runCommand(new model.command.PassTimeCommand(pet, hours), pet);
+                runner.runCommand(new PassTimeCommand(pet, hours), pet);
                 break;
             case 8:
                 Pet selected = changePetMenu();
