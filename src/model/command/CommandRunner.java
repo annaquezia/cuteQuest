@@ -28,7 +28,10 @@ public class CommandRunner {
         }
 
         UiScene scene = decideScene(cmd, pet);
-        commandRunner.ConsoleArtRender(scene, pet);
+        if (scene != null) {
+            commandRunner.ConsoleArtRender(scene, pet);
+        }
+
 
         System.out.println("⏱ Custou: " + timeCost + "h | Agora: " + clock.now() + "h");
 

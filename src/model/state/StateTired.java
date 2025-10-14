@@ -31,7 +31,7 @@ public class StateTired implements PetState {
 
     @Override
     public void tick(Pet pet, int hours) {
-        if (hours >= 2) {
+        if (hours >= 3) {
             pet.setHealth(pet.getHealth() - 10);
             if (pet.getHealth() <= 0) {
                 System.out.println(pet.getName() + " não aguentou e desmaiou... (x . x) ~~zzZ");

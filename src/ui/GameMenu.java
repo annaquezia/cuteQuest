@@ -31,7 +31,7 @@ public class GameMenu {
         }
 
         while (true) {
-            menu(current);
+            current = menu(current);
         }
 
     }
@@ -49,13 +49,35 @@ public class GameMenu {
         return choosePet();
     }
 
+    public void listPets() {
+        var pets = petRepo.getAllPets();
+        for (int i = 0; i < pets.size(); i++) {
+            Pet pet = pets.get(i);
+            String state = pet.getCurrentState().getStateName();
+            String kennelName = "-";
+            if (pet.getKennelID() != null) {
+                var kennel = kennelRepo.getKennel(pet.getKennelID());
+                if (kennel != null) {
+                    kennelName = kennel.get().getKennelName();
+                }
+            }
+            System.out.println(i + 1 + "." + pet.getName() + " | " + pet.getType() + " | " + state + " | " + kennelName);
+        }
+    }
+
+
     public Pet createPet() {
         System.out.println("Você pode escolher entre cachorro, gato, coelho e hamster. Qual a sua escolha? \n");
-        System.out.println("1.Gato\n" +
-                "2.Cachorro\n" +
-                "3.Coelho\n" +
-                "4.Hamster\n" +
-                "Digite o número da sua escolha: ");
+        System.out.print("""
+                ------ Opções ------
+                1. Gato
+                2. Cachorro
+                3. Coelho
+                4. Hamster
+                0. Voltar
+                ---------------------
+                """);
+        System.out.println("Digite o número da sua escolha: ");
 
         int type = scanner.nextInt();
         scanner.nextLine();
@@ -83,36 +105,32 @@ public class GameMenu {
         if (pet != null) {
             System.out.println("Você criou " + pet.getName() + "!");
             renderer.ConsoleArtRender(UiScene.IDLE, pet);
+            System.out.println("\n========= Seus pets =========");
+            listPets();
         }
         return pet;
     }
 
     public Pet choosePet() {
         var pets = petRepo.getAllPets();
-         System.out.println("=========== Escolha um pet para cuidar ===========");
-         for (int i = 0; i < pets.size(); i++) {
-             Pet pet = pets.get(i);
-             String state = pet.getCurrentState().getStateName();
-             String kennelName = "-";
-             if (pet.getKennelID() != null) {
-                 var kennel = kennelRepo.getKennel(pet.getKennelID());
-                 if (kennel != null) {
-                     kennelName = kennel.get().getKennelName();
-                 }
-             }
-             System.out.println(i + 1 + "." + pet.getName() + " | " + pet.getType() + " | " + state + " | " + kennelName);
-         }
-         System.out.println("\nDigite o número do pet: ");
-         int petNumber = scanner.nextInt();
+        System.out.println("=========== Escolha um pet para cuidar ===========");
+        System.out.println("0. Voltar ");
+        listPets();
+        System.out.println("\nDigite o número do pet: ");
+        int petNumber = scanner.nextInt();
 
-         while (petNumber < 1 || petNumber > 5) {
-             System.out.println("Digite uma opção válida: ");
-             int validNumber = scanner.nextInt();
-             scanner.nextLine();
-             petNumber = validNumber;
-         }
+        while (petNumber < 0 || petNumber > pets.size()) {
+            System.out.println("Digite uma opção válida: ");
+            int validNumber = scanner.nextInt();
+            scanner.nextLine();
+            petNumber = validNumber;
+        }
 
-         return pets.get(petNumber - 1);
+        if (petNumber == 0) {
+            return null;
+        } else {
+            return pets.get(petNumber - 1);
+        }
     }
 
     public void showPetStatus(Pet pet) {
@@ -121,6 +139,9 @@ public class GameMenu {
         String kennelName = "-";
         if (pet.getKennelID() != null) {
             var kennel = kennelRepo.getKennel(pet.getKennelID());
+            if (kennel != null) {
+                kennelName = kennel.get().getKennelName();
+            }
         }
         int health = pet.getHealth();
         int happiness = pet.getHappiness();
@@ -131,7 +152,7 @@ public class GameMenu {
         System.out.println("Brincou: " + playCount + "vezes | Comeu: " + feedCount + "vezes");
     }
 
-    public void menu(Pet pet) {
+    public Pet menu(Pet pet) {
         System.out.println("""
         --------- Menu ----------
         1. Alimentar
@@ -141,13 +162,13 @@ public class GameMenu {
         5. Cuidar
         6. Adicionar acessórios
         7. Passar horas
-        8. Trocar de pet
+        8. Trocar/Criar pet
         9. Status do pet
         0. Sair
         --------------------------
         """);
         int option = scanner.nextInt();
-        if (option < 0 || option > 8) {
+        if (option < 0 || option > 9) {
             System.out.println("Digite um uma opção válida: ");
             int validOption = scanner.nextInt();
             scanner.nextLine();
@@ -180,12 +201,18 @@ public class GameMenu {
                 while (hours < 0 || hours > 24) {
                     System.out.println("Digite uma hora entre 0 e 24: ");
                     int validHours = scanner.nextInt();
+                    scanner.nextLine();
                     hours = validHours;
                 }
                 runner.runCommand(new model.command.PassTimeCommand(pet, hours), pet);
                 break;
             case 8:
-                choosePet();
+                Pet selected = changePetMenu();
+                if (selected != null) {
+                    pet = selected;
+                    System.out.println("Agora você está cuidando de: " + pet.getName());
+                    renderer.ConsoleArtRender(UiScene.IDLE, pet);
+                }
                 break;
             case 9:
                 showPetStatus(pet);
@@ -206,11 +233,13 @@ public class GameMenu {
                     } else {
                         System.out.println("Escolha uma opção válida: (s/n) ");
                         String validOptionExit = scanner.nextLine();
+                        scanner.nextLine();
                         optionExit = validOptionExit;
                     }
                 }
             break;
         }
+        return pet;
     }
 
     public void careMenu(Pet pet) {
@@ -223,6 +252,12 @@ public class GameMenu {
         """);
 
         int option = scanner.nextInt();
+        if (option < 0 || option > 2) {
+            System.out.println("Digite um uma opção válida: ");
+            int validOption = scanner.nextInt();
+            scanner.nextLine();
+            option = validOption;
+        }
         switch (option) {
             case 1:
                 runner.runCommand(new model.command.ApplyBathCommand(pet), pet);
@@ -246,6 +281,12 @@ public class GameMenu {
         -------------------------------
         """);
         int option = scanner.nextInt();
+        if (option < 0 || option > 3) {
+            System.out.println("Digite um uma opção válida: ");
+            int validOption = scanner.nextInt();
+            scanner.nextLine();
+            option = validOption;
+        }
         switch (option) {
             case 1:
                 if (pet.getAcessory() != null) {
@@ -265,6 +306,9 @@ public class GameMenu {
                             optionBow = validOptionBow;
                         }
                     }
+                } else {
+                    runner.runCommand(new model.command.ApplyBowCommand(pet), pet);
+                    System.out.println(pet.getName() + " agora está de laço 🎀");
                 }
                 break;
             case 2:
@@ -285,6 +329,9 @@ public class GameMenu {
                             optionScarf = validOptionScarf;
                         }
                     }
+                } else {
+                    runner.runCommand(new model.command.ApplyScarfCommand(pet), pet);
+                    System.out.println(pet.getName() + " agora está de cachecol 🧣");
                 }
                 break;
             case 3:
@@ -304,7 +351,6 @@ public class GameMenu {
                             String validOptionTake = scanner.nextLine();
                             optionTake = validOptionTake;
                         }
-
                     }
                 } else if (pet.getAcessory() == null) {
                     System.out.println(pet.getName() + " não está usando nenhum acessório");
@@ -313,6 +359,34 @@ public class GameMenu {
             case 0:
                 break;
         }
+    }
+
+    public Pet changePetMenu() {
+        System.out.println("""
+        --------- Menu ----------
+        1. Trocar de pet
+        2. Criar pet
+        0. Voltar
+        -------------------------
+        """);
+        int option = scanner.nextInt();
+        if (option < 0 || option > 2) {
+            System.out.println("Digite um uma opção válida: ");
+            int validOption = scanner.nextInt();
+            scanner.nextLine();
+            option = validOption;
+        }
+        switch (option) {
+            case 1:
+                Pet chosen = choosePet();
+                return chosen;
+            case 2:
+                Pet created = createPet();
+                return created;
+            case 0:
+                break;
+        }
+        return null;
     }
 }
 

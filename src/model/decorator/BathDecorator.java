@@ -1,6 +1,7 @@
 package model.decorator;
 
 import model.Pet;
+import model.state.*;
 
 public class BathDecorator extends PetDecorator {
     private int playsRemains = 5;
@@ -12,10 +13,20 @@ public class BathDecorator extends PetDecorator {
 
     @Override
     public void onPlay(Pet pet) {
-        playsRemains--;
-        if (playsRemains <= 0) {
-            System.out.println(pet.getName() + " se sujou brincando e o efeito do banho acabou!");
-            pet.setAcessory(null);
+        if (pet.getCurrentState() instanceof StateHungry) {
+            return;
+        } else if (pet.getCurrentState() instanceof StateSick) {
+            return;
+        } else if (pet.getCurrentState() instanceof StateTired) {
+            return;
+        } else if (pet.getCurrentState() instanceof StateSleeping) {
+            return;
+        } else if (pet.getCurrentState() instanceof StateHappy) {
+            playsRemains--;
+            if (playsRemains <= 0) {
+                System.out.println(pet.getName() + " se sujou brincando e o efeito do banho acabou!");
+                pet.setBath(null);
+            }
         }
     }
 
