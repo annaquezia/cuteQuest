@@ -13,7 +13,6 @@ Mais do que um joguinho de console, o projeto foi feito para **demonstrar o uso 
 - **Command** → encapsula cada ação do jogador (alimentar, brincar, dormir, curar...).  
 - **State** → controla o humor e os estados dos pets (feliz, cansado, faminto, doente...).  
 - **Decorator** → adiciona acessórios e efeitos visuais (laço, cachecol, banho) sem alterar a classe original.  
-- **Singleton (implícito)** → garante que os repositórios de pets e baias existam em uma única instância durante o jogo.
 
 ---
 
