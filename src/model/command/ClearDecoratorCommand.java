@@ -20,7 +20,11 @@ public class ClearDecoratorCommand implements Command {
     }
 
     public UiScene sceneHint() {
-        return UiScene.IDLE;
+        if (pet.getBath() != null) {
+            return UiScene.BATH;
+        } else {
+            return UiScene.IDLE;
+        }
     }
 
     public String description() {

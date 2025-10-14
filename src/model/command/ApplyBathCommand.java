@@ -2,6 +2,8 @@ package model.command;
 
 import model.Pet;
 import model.decorator.BathDecorator;
+import model.decorator.BowDecorator;
+import model.decorator.ScarfDecorator;
 import ui.UiScene;
 
 public class ApplyBathCommand implements Command {
@@ -20,7 +22,13 @@ public class ApplyBathCommand implements Command {
     }
 
     public UiScene sceneHint() {
-        return UiScene.BATH;
+        if (pet.getAcessory() instanceof BowDecorator) {
+            return UiScene.BATH_BOW;
+        } else if (pet.getAcessory() instanceof ScarfDecorator) {
+            return UiScene.BATH_SCARF;
+        } else {
+            return UiScene.BATH;
+        }
     }
 
     public String description() {

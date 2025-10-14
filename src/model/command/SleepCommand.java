@@ -1,6 +1,8 @@
 package model.command;
 
 import model.Pet;
+import model.decorator.BowDecorator;
+import model.decorator.ScarfDecorator;
 import ui.UiScene;
 
 import java.util.Objects;
@@ -24,7 +26,21 @@ public class SleepCommand implements Command {
 
     @Override
     public UiScene sceneHint() {
-        return UiScene.SLEEP;
+        if (pet.getBath() != null && pet.getAcessory() instanceof BowDecorator) {
+            return UiScene.SLEEP_BATH_BOW;
+        } else if (pet.getBath() != null && pet.getAcessory() instanceof ScarfDecorator) {
+            return UiScene.SLEEP_BATH_SCARF;
+        } else if (pet.getBath() != null) {
+            return UiScene.SLEEP_BATH;
+        } else if (pet.getAcessory() != null) {
+            if (pet.getAcessory() instanceof BowDecorator) {
+                return UiScene.SLEEP_BOW;
+            } else {
+                return UiScene.SLEEP_SCARF;
+            }
+        } else {
+            return UiScene.SLEEP;
+        }
     }
 
     @Override

@@ -2,6 +2,8 @@ package model.command;
 
 import model.Pet;
 import model.SimulationClock;
+import model.decorator.BowDecorator;
+import model.decorator.ScarfDecorator;
 import model.state.StateHungry;
 import model.state.StateSick;
 import model.state.StateTired;
@@ -34,11 +36,53 @@ public class CommandRunner {
 
     private UiScene decideScene(Command cmd, Pet pet) {
         if (pet.getCurrentState() instanceof StateSick) {
-            return UiScene.SICK;
+            if (pet.getBath() != null && pet.getAcessory() instanceof BowDecorator) {
+                return UiScene.SICK_BATH_BOW;
+            } else if (pet.getBath() != null && pet.getAcessory() instanceof ScarfDecorator) {
+                return UiScene.SICK_BATH_SCARF;
+            } else if (pet.getBath() != null) {
+                return UiScene.SICK_BATH;
+            } else if (pet.getAcessory() != null) {
+                if (pet.getAcessory() instanceof BowDecorator) {
+                    return UiScene.SICK_BOW;
+                } else {
+                    return UiScene.SICK_SCARF;
+                }
+            } else {
+                return UiScene.SICK;
+            }
         } else if (pet.getCurrentState() instanceof StateTired) {
-            return UiScene.TIRED;
+            if (pet.getBath() != null && pet.getAcessory() instanceof BowDecorator) {
+                return UiScene.TIRED_BATH_BOW;
+            } else if (pet.getBath() != null && pet.getAcessory() instanceof ScarfDecorator) {
+                return UiScene.TIRED_BATH_SCARF;
+            } else if (pet.getBath() != null) {
+                return UiScene.TIRED_BATH;
+            } else if (pet.getAcessory() != null) {
+                if (pet.getAcessory() instanceof BowDecorator) {
+                    return UiScene.TIRED_BOW;
+                } else {
+                    return UiScene.TIRED_SCARF;
+                }
+            } else {
+                return UiScene.TIRED;
+            }
         } else if (pet.getCurrentState() instanceof StateHungry) {
-            return UiScene.HUNGRY;
+            if (pet.getBath() != null && pet.getAcessory() instanceof BowDecorator) {
+                return UiScene.HUNGRY_BATH_BOW;
+            } else if (pet.getBath() != null && pet.getAcessory() instanceof ScarfDecorator) {
+                return UiScene.HUNGRY_BATH_SCARF;
+            } else if (pet.getBath() != null) {
+                return UiScene.HUNGRY_BATH;
+            } else if (pet.getAcessory() != null) {
+                if (pet.getAcessory() instanceof BowDecorator) {
+                    return UiScene.HUNGRY_BOW;
+                } else {
+                    return UiScene.HUNGRY_SCARF;
+                }
+            } else {
+                return UiScene.HUNGRY;
+            }
         }
         UiScene scene = cmd.sceneHint();
         if (scene == null) {

@@ -1,6 +1,8 @@
 package model.command;
 
 import model.Pet;
+import model.decorator.BowDecorator;
+import model.decorator.ScarfDecorator;
 import ui.UiScene;
 
 import java.util.Objects;
@@ -24,7 +26,21 @@ public class FeedCommand implements Command {
 
     @Override
     public UiScene sceneHint() {
-        return UiScene.FEED;
+        if (pet.getBath() != null && pet.getAcessory() instanceof BowDecorator) {
+            return UiScene.FEED_BATH_BOW;
+        } else if (pet.getBath() != null && pet.getAcessory() instanceof ScarfDecorator) {
+            return UiScene.FEED_BATH_SCARF;
+        } else if (pet.getBath() != null) {
+            return UiScene.FEED_BATH;
+        } else if (pet.getAcessory() != null) {
+            if (pet.getAcessory() instanceof BowDecorator) {
+                return UiScene.FEED_BOW;
+            } else {
+                return UiScene.FEED_SCARF;
+            }
+        } else {
+            return UiScene.FEED;
+        }
     }
 
     @Override

@@ -21,7 +21,11 @@ public class ApplyBowCommand implements Command {
     }
 
     public UiScene sceneHint() {
-        return UiScene.BOW;
+        if (pet.getBath() != null) {
+            return UiScene.BATH_BOW;
+        } else {
+            return UiScene.BOW;
+        }
     }
 
     public String description() {

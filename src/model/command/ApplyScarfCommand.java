@@ -20,7 +20,11 @@ public class ApplyScarfCommand implements Command {
     }
 
     public UiScene sceneHint() {
-        return UiScene.SCARF;
+        if (pet.getBath() != null) {
+            return UiScene.BATH_SCARF;
+        } else {
+            return UiScene.SCARF;
+        }
     }
 
     public String description() {
