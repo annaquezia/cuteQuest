@@ -30,63 +30,63 @@ public abstract class Pet implements PetComponent {
         this.adopted = false;
     }
 
-    public void feed(){
-        currentState.feed(this);
+    public void feed(Pet pet) {
+        currentState.feed(pet);
         if (bath != null) {
-            bath.feed(this);
+            bath.feed(pet);
         }
         if (acessory != null) {
-            acessory.feed(this);
+            acessory.feed(pet);
         }
     }
 
-    public void play(){
-        currentState.play(this);
+    public void play(Pet pet) {
+        currentState.play(pet);
         if (bath != null) {
-            bath.play(this);
+            bath.play(pet);
         }
         if (acessory != null) {
-            acessory.play(this);
+            acessory.play(pet);
         }
     }
 
-    public void heal(){
-        currentState.heal(this);
+    public void heal(Pet pet) {
+        currentState.heal(pet);
         if (bath != null) {
-            bath.heal(this);
+            bath.heal(pet);
         }
         if (acessory != null) {
-            acessory.heal(this);
+            acessory.heal(pet);
         }
     }
 
-    public void sleep(){
-        currentState.sleep(this);
+    public void sleep(Pet pet) {
+        currentState.sleep(pet);
         if (bath != null) {
-            bath.sleep(this);
+            bath.sleep(pet);
         }
         if (acessory != null) {
-            acessory.sleep(this);
+            acessory.sleep(pet);
         }
     }
 
-    public void wakeUp(){
-        currentState.wakeUp(this);
+    public void wakeUp(Pet pet) {
+        currentState.wakeUp(pet);
         if (bath != null) {
-            bath.wakeUp(this);
+            bath.wakeUp(pet);
         }
         if (acessory != null) {
-            acessory.wakeUp(this);
+            acessory.wakeUp(pet);
         }
     }
 
-    public void tick(int hours) {
-        currentState.tick(this, hours);
+    public void tick(Pet pet, int hours) {
+        currentState.tick(pet, hours);
         if (bath != null) {
-            bath.tick(this, hours);
+            bath.tick(pet, hours);
         }
         if (acessory != null) {
-            acessory.tick(this, hours);
+            acessory.tick(pet, hours);
         }
     }
 
