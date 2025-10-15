@@ -1,6 +1,6 @@
-# Little Cats Pet Shop 🐾
+# Cute Quest 🐾
 
-O **Little Cats Pet Shop** é um jogo em Java onde você cuida de animaizinhos virtuais — gatos, cachorros, coelhos e hamsters.  
+O **Cute Quest** é um jogo em Java onde você cuida de animaizinhos virtuais — gatos, cachorros, coelhos e hamsters.  
 Você pode alimentar, brincar, colocar acessórios e acompanhar o humor e a saúde de cada pet.
 
 Mais do que um joguinho de console, o projeto foi feito para **demonstrar o uso de Padrões de Projeto (GoF)** de um jeito prático e divertido.
