@@ -16,7 +16,7 @@ public class HealCommand implements Command {
 
     @Override
     public void execute() {
-        pet.heal();
+        pet.heal(pet);
     }
 
     @Override

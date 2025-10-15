@@ -16,7 +16,7 @@ public class SleepCommand implements Command {
 
     @Override
     public void execute() {
-        pet.sleep();
+        pet.sleep(pet);
     }
 
     @Override

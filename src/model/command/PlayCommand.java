@@ -16,7 +16,7 @@ public class PlayCommand implements Command {
 
     @Override
     public void execute() {
-        pet.play();
+        pet.play(pet);
     }
 
     @Override

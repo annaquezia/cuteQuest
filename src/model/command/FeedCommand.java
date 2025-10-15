@@ -16,7 +16,7 @@ public class FeedCommand implements Command {
 
     @Override
     public void execute() {
-        pet.feed();
+        pet.feed(pet);
     }
 
     @Override

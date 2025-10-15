@@ -16,7 +16,7 @@ public class WakeCommand implements Command {
 
     @Override
     public void execute() {
-        pet.wakeUp();
+        pet.wakeUp(pet);
     }
 
     @Override

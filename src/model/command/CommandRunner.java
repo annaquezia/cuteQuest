@@ -24,7 +24,7 @@ public class CommandRunner {
         int timeCost = cmd.timeCostHours();
         if (timeCost > 0) {
             clock.advance(timeCost);
-            pet.tick(timeCost);
+            pet.tick(pet, timeCost);
         }
 
         UiScene scene = decideScene(cmd, pet);
