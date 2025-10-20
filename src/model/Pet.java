@@ -32,26 +32,40 @@ public abstract class Pet implements PetComponent {
 
     public void feed(Pet pet) {
         currentState.feed(pet);
+        if (bath != null)      bath.feed(this);
+        if (acessory != null)  acessory.feed(this);
     }
 
     public void play(Pet pet) {
         currentState.play(pet);
+        if (bath != null)      bath.play(this);
+        if (acessory != null)  acessory.play(this);
     }
 
     public void heal(Pet pet) {
         currentState.heal(pet);
+        if (bath != null)      bath.heal(this);
+        if (acessory != null)  acessory.heal(this);
     }
 
     public void sleep(Pet pet) {
         currentState.sleep(pet);
+        if (bath != null)      bath.sleep(this);
+        if (acessory != null)  acessory.sleep(this);
     }
+
 
     public void wakeUp(Pet pet) {
         currentState.wakeUp(pet);
+        if (bath != null)      bath.wakeUp(this);
+        if (acessory != null)  acessory.wakeUp(this);
     }
+
 
     public void tick(Pet pet, int hours) {
         currentState.tick(pet, hours);
+        if (bath != null)      bath.tick(this, hours);
+        if (acessory != null)  acessory.tick(this, hours);
     }
 
     public void incrementPlayCount(){

@@ -22,13 +22,11 @@ public class BathDecorator extends PetDecorator {
                 || pet.getCurrentState() instanceof StateSick
                 || pet.getCurrentState() instanceof StateTired
                 || pet.getCurrentState() instanceof StateSleeping) {
-            super.play(pet);
             return;
         }
 
-        super.play(pet);
+        playsRemains--;
         if (pet.getCurrentState() instanceof StateHappy) {
-            playsRemains--;
             if (playsRemains <= 0) {
                 System.out.println(pet.getName() + " se sujou brincando e o efeito do banho acabou!");
                 pet.setBath(null);

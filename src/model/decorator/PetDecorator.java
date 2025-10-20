@@ -15,23 +15,17 @@ public abstract class PetDecorator implements PetComponent{
     }
 
     public void feed(Pet pet) {
-        wrapee.feed(pet);
     }
     public void play(Pet pet) {
-        wrapee.play(pet);
     }
     public void heal(Pet pet) {
-        wrapee.heal(pet);
     }
     public void sleep(Pet pet) {
-        wrapee.sleep(pet);
     }
     public void wakeUp(Pet pet) {
-        wrapee.wakeUp(pet);
     }
 
     public void tick(Pet pet, int hours) {
-        wrapee.tick(pet, hours);
     }
 
     public String getName() {
@@ -39,7 +33,6 @@ public abstract class PetDecorator implements PetComponent{
     }
 
     public void setName(String name) {
-        wrapee.setName(name);
     }
 
     public int getHealth() {
@@ -47,7 +40,6 @@ public abstract class PetDecorator implements PetComponent{
     }
 
     public void setHealth(int health) {
-        wrapee.setHealth(health);
     }
 
     public int getHappiness(){
@@ -55,7 +47,6 @@ public abstract class PetDecorator implements PetComponent{
     }
 
     public void setHappiness(int happiness){
-        wrapee.setHappiness(happiness);
     }
 
 
